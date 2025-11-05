@@ -11,6 +11,10 @@ export const Login = ({ onLogin }) => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
+    if (typeof onLogin === "function") {
+      onLogin(formState.username);
+    }
+
     console.log(formState);
 
     handleReset();
