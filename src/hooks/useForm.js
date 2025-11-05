@@ -38,6 +38,8 @@ export const useForm = (initialState) => {
   return {
     formState,
     ...formState,
+    username,
+    password,
     handleChange,
     handleSubmit,
     handleReset //si no retorno handleReset cuando lo llame en el componente LOGIN no va a existir. queda undefined y al invocarla JavaScript lanza TypeError
