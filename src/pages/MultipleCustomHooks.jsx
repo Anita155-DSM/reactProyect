@@ -1,46 +1,30 @@
 import { useEffect } from "react";
-import { useState } from "react";
 import { useCounter } from "../hooks/useCounter";
+import { useFetch } from "../hooks/useFetch";
+import { Loading } from "../components/Loading";
+import { CharacterInfo } from "../components/CharacterInfo";
 
 export const MultipleCustomHooks = () => {
-  const [state, setState] = useState({
-    data: null,
-    isLoading: true,
-  });
-  const { data, isLoading } = state;
 
-  const { count, handleIncrement } = useCounter(1);
+    const { count, handleIncrement } = useCounter(1);
 
   const url = `https://thesimpsonsapi.com/api/characters/${count}`;
 
-  const getFetch = async () => {
-    try {
-      setState({
-        ...state,
-        isLoading: true,
-      });
+  const { data: apiData, isLoading: apiLoading, error: apiError } = useFetch(url);
 
-      const resp = await fetch(url);
-      const data = await resp.json();
+  const displayData = apiData;
+  const displayLoading = apiLoading;
+  const displayError = apiError;
 
-      await new Promise((resolve) => setTimeout(resolve, 2000));
-
-      setState({
-        data: data,
-        isLoading: false,
-      });
-    } catch (error) {
-      console.log("Error al obtener los personajes", error);
-    }
-  };
-
+  // Debug: muestra en consola la data completa para inspeccionar las claves
+  // (quitar en producción)
   useEffect(() => {
-    getFetch();
-
-    return () => {
-      console.log("desmonta");
-    };
-  }, [url]);
+    if (displayData) console.log("API character data:", displayData);
+  }, [displayData]);
+//   if (count === 1 ) {
+//     // Si estamos en el primer personaje y se intenta ir a uno anterior, necesito que el boton "anterior" deje de poder apretarse
+//     handleIncrement(0); // mantener en 1
+//   }
 
   return (
     <>
@@ -51,9 +35,25 @@ export const MultipleCustomHooks = () => {
         #{data?.id}-{data?.name}
       </h3> */}
 
-      {isLoading ? <h1>Cargando...</h1> : <h3>{data?.name}</h3>}
+      {displayLoading ? (
+        <Loading message="Cargando personaje..." />
+      ) : displayError ? (
+        <p>Error: {displayError}</p>
+      ) : (
+        <CharacterInfo character={displayData} />
+      )}
 
-      <button onClick={() => handleIncrement(1)} disabled={isLoading}>
+      <button
+        onClick={() => handleIncrement(-1)}
+        disabled={
+          count === 1 ||
+          (displayData && displayData.name === "Homer Simpson")
+        }
+        id="boton-anterior"
+      >
+        Anterior
+      </button>
+      <button onClick={() => handleIncrement(1)} disabled={displayLoading}>
         Siguiente
       </button>
     </>

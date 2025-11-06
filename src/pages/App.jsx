@@ -13,7 +13,7 @@ export const App = () => {
 
   const handleLogout = () => setUser("");
 
-  const [showSimpsons, setShowSimpsons] = useState(false);
+  const [showSimpsons, setShowSimpsons] = useState(false); //estado de la api
 
   return (
     <> 
