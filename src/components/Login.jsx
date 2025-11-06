@@ -21,7 +21,7 @@ export const Login = ({ onLogin }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className="auth-form" onSubmit={handleSubmit}>
       <input
         type="text"
         name="username"
@@ -36,8 +36,7 @@ export const Login = ({ onLogin }) => {
         value={password}
         onChange={handleChange}
       />
-
-      <button>Iniciar Sesion</button>
+      <button className="auth-btn">Iniciar Sesion</button>
     </form>
   );
 };

@@ -36,7 +36,7 @@ export const MultipleCustomHooks = () => {
       </h3> */}
 
       {displayLoading ? (
-        <Loading message="Cargando personaje..." />
+        <Loading/>
       ) : displayError ? (
         <p>Error: {displayError}</p>
       ) : (
@@ -50,10 +50,11 @@ export const MultipleCustomHooks = () => {
           (displayData && displayData.name === "Homer Simpson")
         }
         id="boton-anterior"
+        className="nav-btn nav-btn--prev"
       >
         Anterior
       </button>
-      <button onClick={() => handleIncrement(1)} disabled={displayLoading}>
+      <button className="nav-btn nav-btn--next" onClick={() => handleIncrement(1)} disabled={displayLoading}>
         Siguiente
       </button>
     </>

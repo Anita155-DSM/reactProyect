@@ -20,7 +20,7 @@ export const Register = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className="auth-form" onSubmit={handleSubmit}>
       <input
         type="text"
         name="username"
@@ -61,7 +61,7 @@ export const Register = () => {
         onChange={handleChange}
       />
 
-      <button>Register</button>
+      <button className="auth-btn">Register</button>
     </form>
   );
 };

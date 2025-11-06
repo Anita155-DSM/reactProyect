@@ -18,12 +18,21 @@ export const CharacterInfo = ({ character }) => {
 //   }
 //me di cuenta que poniendo una condicional OR me ahorraba código ya que algunas edades no estan disponible en la API, aunque igualmente dejo ese bloque de código comentado por si acaso.
   return (
-    <div>
-      <h3>{character.name}</h3>
-      <p>Edad: {character.age || "No disponible"}</p>
-      <p>Género: {character.gender || "No disponible"}</p>
-      <p>Descripción: {character.description || "No disponible"}</p>
-      <img src={character.portrait_path} alt={character.name} />
+    // console.log removed from JSX
+    <div className="character-card">
+      <div className="character-card__info">
+        <h3>{character.name}</h3>
+        <p className="muted">Edad: {character.age || "No disponible"}</p>
+        <p className="muted">Género: {character.gender || "No disponible"}</p>
+        <p>{character.description || "No disponible"}</p>
+      </div>
+      {/* <img className="bnha-avatar" src={`https://thesimpsonsapi.com/500/${character.portrait_path}`} alt={character.name} />  (PRUEA NOMAS) */}
+      {/* placeholder genérico porque la API está caída */}
+      <img
+        className="bnha-avatar"
+        src={`https://placehold.co/150x200?text=${character.name.split(' ')[0]}`}
+        alt={character.name}
+      />
     </div>
   );
 };
